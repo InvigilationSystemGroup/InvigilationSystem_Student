@@ -1,0 +1,52 @@
+import java.io.*;
+
+import com.sun.javafx.sg.prism.web.NGWebView;
+
+import work.imp.WhiteIpAddressImp;
+
+//用于设定可被访问的网址
+public class Test {
+    public static void main(String[] args) throws InterruptedException {
+    	 DataInputStream dis = null;
+    	 FileInputStream fis = null;
+    	 FileOutputStream fos = null;
+    	 DataOutputStream dos = null;
+    	  try {
+    	        	  fis = new FileInputStream(new File("C:\\Windows\\System32\\drivers\\etc\\hosts"));
+    	        	  fos = new FileOutputStream(new File("C:\\Windows\\System32\\drivers\\etc\\hosts"),true);
+    	              /*创建二进制输入流*/
+    	              dis = new DataInputStream(fis);
+    	              /*创建二进制输出流*/
+    	              dos = new DataOutputStream(fos);
+    	              /*hosts基本信息*/
+    	             
+    	              /*指定限定访问的ip地址，需要知道对应的IP地址*/
+    	              String s2 = "\n127.0.1.1 localhost\n61.135.169.125 www.baidu.com";
+    	            
+    	              //dos.writeBytes(s1);
+    	              dos.writeBytes(s2);
+    	              
+    	              /*循环读取并输出hosts信息，可省略*/
+    	              int temp;
+    	              while((temp=dis.read())!=-1){
+    	                  System.out.print((char)temp);
+    	              }
+    	          } catch (FileNotFoundException e) {
+    	              e.printStackTrace();
+    	          } catch (IOException e) {
+    	              e.printStackTrace();
+    	          }
+    	          finally{
+    	              if (dos!=null && dis!=null) {
+    	                  try {
+    	                      dos.close();
+    	                      dis.close();
+    	                      fos.close();
+    	                      dos.close();
+    	                  } catch (IOException e) {
+    	                      e.printStackTrace();
+    	                  }
+    	              }
+    	          }
+    }
+}
